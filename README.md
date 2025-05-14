@@ -36,47 +36,36 @@ This tutorial outlines the implementation of on-premises Active Directory within
 
 <h2>Deployment and Configuration Steps</h2>
 
-<p>
-<img src="https://i.imgur.com/9FUR8KV.gif" height="80%" width="80%" alt="Creating Virtual Machines"/>
-</p>
+![1](https://github.com/user-attachments/assets/90a9ef13-972a-4a94-aafc-61453c8bb641)
 <p>
 In Azure, create a resource group along with a virtual network and a subnet. Create two virtual machines, one for the domain controller (I'm naming it as dc-1) running Windows Server 2022 and the other as a client virtual machine running Windows 10. 
 </p>
 <br />
 
-<p>
-<img src="https://i.imgur.com/IxWOvS9.gif" height="80%" width="80%" alt="Configuring Network Settings"/>
-</p>
+![2](https://github.com/user-attachments/assets/e656e54f-2224-432b-a0e6-45fbae27342e)
 <p>
 Once the virtual machines are deployed, head over to the domain controller and go to the network settings under Networking. Click the network interface controller, and head over to the IP settings. Change the ipconfig1 to become static. Go back to the domain controller and copy it's private ip address. Go to your client virtual machine and over to DNS settings inside the network interface controller add the ip address of the domain controller. Restart the client vm.
 </p>
 <br />
 
-<p>
-<img src="https://i.imgur.com/vujwbzy.gif" height="80%" width="80%" alt="Setting up AD"/>
-</p>
+![3](https://github.com/user-attachments/assets/f6a1c4cb-b7fa-43fc-9742-cc95c78f04c2)
 <p>
 Log onto the domain controller via it's public ip address with Remote Desktop. On the top right, click Manage and add Roles and Features. Under Server Roles, select Active Directory Domain Services and go next to install. Once, it's done installing promote the server as a domain controller. Click add a new forest and setup a domain name (in this example its mydomain.com). Add a DSRM password and click continue until it installs. The computer should be prompted to restart. 
 </p>
 <br />
 
-<p>
-<img src="https://i.imgur.com/1JoHcoj.png" height="80%" width="80%" alt="Logon"/>
-</p>
+![4](https://github.com/user-attachments/assets/0e94076c-6c96-404e-addf-0e571ef56b03)
 <p>
 Log in back to the domain controller as your username@domain.com. An example is shown above of what it should look like. 
 </p>
 <br />
 
 
-<p>
-<img src="https://i.imgur.com/q4Vnj9v.gif" height="80%" width="80%" alt="Using AUDC"/>
-</p>
+![5](https://github.com/user-attachments/assets/23d3910e-fdd0-4bce-b645-c0f0e0d2a700)
 <p>
 Go to your search bar and look up Active Directory Users and Computers (AUDC). Navigate to your domain, create an Organization Unit (OU) by right-clicking. Create two named _EMPLOYEES and _ADMINS. Under _EMPLOYEES, create a user. Right click on them hit properties, hit the Member of tab and click add. Add them to the Domain Admins. Logout of the current user in the DC and login as that user. 
 </p>
 <br />
-
 
 <p>
 <img src="https://i.imgur.com/xHdiWAp.gif" height="80%" width="80%" alt="Joining client to domain"/>
@@ -89,8 +78,6 @@ Restart then, go to the domain controller and head over to ADUC, note that in th
 </p>
 <br />
 
-
-Go to the client computer and navigate to the shared folders by typing \\domain controller name\. Try to access all the folders created before and notice the differences. Read-access allows you to view but, can't create files. Write-access allows you to view and create. No-access doesn't allow you view it at all. 
 <p>
 <img src="https://i.imgur.com/Zd1XnEZ.gif" height="80%" width="80%" alt="PS Script"/>
 </p>
@@ -151,9 +138,7 @@ In the domain controller and in DNS, create a CNAME record, name it search and p
 <br />
 
 
-<p>
-<img src="https://i.imgur.com/Ihy165F.gif" height="80%" width="80%" alt="Network File Shares"/>
-</p>
+![14](https://github.com/user-attachments/assets/f20d5074-b038-4d0d-b58e-cd514d961446)
 <p>
 In the domain controller, go to the file explorer and create 4 folders in the C drive: read-access, write-access, no-access and accounting. Right click read-access, click properties, navigate to Sharing, click share and add domain users with permissions of only read. Do the same with the others folders except accounting: write-access with domain users -> read/write and no-access domain admins -> read/write. 
 </p>
@@ -163,9 +148,8 @@ Go to the client computer and navigate to the shared folders by typing \\domain 
 <br />
 
 
-<p>
-<img src="https://i.imgur.com/wvBAWmE.gif" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
+
+![15](https://github.com/user-attachments/assets/e79ecfc3-7e9a-4e12-bb37-537797bd03fe)
 <p>
 Go back to the domain controller and open up ADUC and create another Organization unit named _GROUPS. Create a security group named ACCOUNTANTS and apply it to one of the users before by right clicking, click Member of and adding accountants in the list. Back to the file explorer, share the folder to the accountants group with read/write permissions. Log in to that user or sign out and log back in, navigate back to network directory and notice the accountants folder is there. You can then access it. 
 </p>
