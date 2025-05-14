@@ -82,10 +82,7 @@ Go to your search bar and look up Active Directory Users and Computers (AUDC). N
 <img src="https://i.imgur.com/xHdiWAp.gif" height="80%" width="80%" alt="Joining client to domain"/>
 </p>
 <p>
-Log into the client vm. Go to settings -> System -> System Properties -> click Change, toggle Domain and type in your domain. The computer should prompt you to sign in. Sign in using your user's credentials created before. You should get a prompt that you joined the domain and the computer to be asked to restart now.
-</p>
-<p>
-Note: If you don't see this and you get an error, restart the virtual machine as it's likely the DNS settings didn't get applied. 
+Log into the client vm. Go to settings -> System -> System Properties -> click Change, toggle Domain and type in your domain. The computer should prompt you to sign in. Sign in using your user's credentials created before. You should get a prompt that you joined the domain and the computer to be asked to restart now. Note: If you don't see this and you get an error, restart the virtual machine as it's likely the DNS settings didn't get applied. 
 </p>
 <p>
 Restart then, go to the domain controller and head over to ADUC, note that in the computers folder that the client computer is there. Log in the client virtual machine as the user you created before. Head back to settings -> System -> Advanced system settings -> Click Remote tab -> Select Users and add Domain Users to the list.
@@ -98,11 +95,11 @@ Go to the client computer and navigate to the shared folders by typing \\domain 
 <img src="https://i.imgur.com/Zd1XnEZ.gif" height="80%" width="80%" alt="PS Script"/>
 </p>
 <p>
-Back to the domain controller, open up Powershell ISE as an admin. Create a new file and paste contents of this Powershell [Script](https://github.com/joshmadakor2/AD_PS/blob/master/Generate-Names-Create-Users.ps1). Run the script and observe all the accounts created in the ADUC. Choose a user and log into the client machine as them. Notice that it works.
+Back to the domain controller, open up Powershell ISE as an admin. Create a new file and paste contents of this Powershell script below. Run the script and observe all the accounts created in the ADUC. Choose a user and log into the client machine as them. Notice that it works.
 </p>
-
 <br />
 
+[Script](https://github.com/joshmadakor2/AD_PS/blob/master/Generate-Names-Create-Users.ps1)
 
 <p>
 <img src="https://i.imgur.com/DzkskVz.gif" height="80%" width="80%" alt="Group Policy Config"/>
