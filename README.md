@@ -67,9 +67,7 @@ Go to your search bar and look up Active Directory Users and Computers (AUDC). N
 </p>
 <br />
 
-<p>
-<img src="https://i.imgur.com/xHdiWAp.gif" height="80%" width="80%" alt="Joining client to domain"/>
-</p>
+[ezgif-3fdd56ef5c628b.webm](https://github.com/user-attachments/assets/3f1301d2-2679-4262-aa99-4a3a40085e2b)
 <p>
 Log into the client vm. Go to settings -> System -> System Properties -> click Change, toggle Domain and type in your domain. The computer should prompt you to sign in. Sign in using your user's credentials created before. You should get a prompt that you joined the domain and the computer to be asked to restart now. Note: If you don't see this and you get an error, restart the virtual machine as it's likely the DNS settings didn't get applied. 
 </p>
@@ -78,9 +76,7 @@ Restart then, go to the domain controller and head over to ADUC, note that in th
 </p>
 <br />
 
-<p>
-<img src="https://i.imgur.com/Zd1XnEZ.gif" height="80%" width="80%" alt="PS Script"/>
-</p>
+[7.webm](https://github.com/user-attachments/assets/8b6b0c2a-aaec-4915-800f-c2ec2592f85e)
 <p>
 Back to the domain controller, open up Powershell ISE as an admin. Create a new file and paste contents of this Powershell script below. Run the script and observe all the accounts created in the ADUC. Choose a user and log into the client machine as them. Notice that it works.
 </p>
@@ -88,9 +84,7 @@ Back to the domain controller, open up Powershell ISE as an admin. Create a new 
 
 [Script](https://github.com/joshmadakor2/AD_PS/blob/master/Generate-Names-Create-Users.ps1)
 
-<p>
-<img src="https://i.imgur.com/DzkskVz.gif" height="80%" width="80%" alt="Group Policy Config"/>
-</p>
+![8](https://github.com/user-attachments/assets/442e347a-6a05-41bd-9744-189c624a746a)
 <p>
 Back to the Domain Controller, search up gpmc.msc on the taskbar. Navigate to the domain name by the down arrows and find Group Policy Objects. Right click and create a new GPO name. Right click again and hit edit. Navigate to Computer Configuration -> Policies -> Windows Settings -> Security Settings -> Account Policies -> Account Lockout Policy. 
 </p>
@@ -108,18 +102,15 @@ Force an update by going to the client virtual machine and within Command Prompt
 </p>
 <br />
 
-<p>
-<img src="https://i.imgur.com/D4XCkAS.gif" height="80%" width="80%" alt="Unlock user"/>
-</p>
+![11](https://github.com/user-attachments/assets/fad181a4-2324-4490-ba4a-9fcf78438f01)
 <p>
 Unlock it by going to the domain controller, navigating to ADUC, finding the locked user, clicking the Account tab and checking the Unlock account option. Now log in back correctly and notice it works. This is an illustration of a user locked out of their account. 
 </p>
 <br />
 
 
-<p>
-<img src="https://i.imgur.com/9M7cFRW.gif" height="80%" width="80%" alt="Configure DNS"/>
-</p>
+
+[12.webm](https://github.com/user-attachments/assets/a6bf0afb-620d-47c5-8e47-cec85651dc8d)
 <p>
 On the client machine, open up Command Prompt and attempt to ping mainhost. Notice that it fails. Go to the domain controller, and open up DNS Manager. Navigate to the Forward Lockup Zones and create a A-record for mainhost. In the line of IP address, point to the domain controller private IP address. Now go back and ping mainhost in the client machine and observe it works. You can see it works and is stored in the DNS cache by typing ipconfig /displaydns.
 </p>
@@ -129,9 +120,7 @@ Note: DNS works by checking its dns cache first, then the host file and then the
 <br />
 
 
-<p>
-<img src="https://i.imgur.com/ATWCgPW.gif" height="80%" width="80%" alt="Adding a CNAME record"/>
-</p>
+![13](https://github.com/user-attachments/assets/fc059613-b551-4c26-9cea-9b5c4c8873f1)
 <p>
 In the domain controller and in DNS, create a CNAME record, name it search and point it to google.com. Then, in the client machine ping search. Note it works. You can do nslookup search and observe it shows google as well as their ip addresses.
 </p>
@@ -143,6 +132,7 @@ In the domain controller and in DNS, create a CNAME record, name it search and p
 In the domain controller, go to the file explorer and create 4 folders in the C drive: read-access, write-access, no-access and accounting. Right click read-access, click properties, navigate to Sharing, click share and add domain users with permissions of only read. Do the same with the others folders except accounting: write-access with domain users -> read/write and no-access domain admins -> read/write. 
 </p>
 <p>
+
 Go to the client computer and navigate to the shared folders by typing \\domain controller name\. Try to access all the folders created before and notice the differences. Read-access allows you to view but, can't create files. Write-access allows you to view and create. No-access doesn't allow you view it at all. 
 </p>
 <br />
@@ -150,10 +140,9 @@ Go to the client computer and navigate to the shared folders by typing \\domain 
 
 
 ![15](https://github.com/user-attachments/assets/e79ecfc3-7e9a-4e12-bb37-537797bd03fe)
+
 <p>
 Go back to the domain controller and open up ADUC and create another Organization unit named _GROUPS. Create a security group named ACCOUNTANTS and apply it to one of the users before by right clicking, click Member of and adding accountants in the list. Back to the file explorer, share the folder to the accountants group with read/write permissions. Log in to that user or sign out and log back in, navigate back to network directory and notice the accountants folder is there. You can then access it. 
 </p>
 <br />
-
-
 
