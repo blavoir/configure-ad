@@ -82,7 +82,7 @@ Back to the domain controller, open up Powershell ISE as an admin. Create a new 
 </p>
 <br />
 
-[Script](https://github.com/joshmadakor2/AD_PS/blob/master/Generate-Names-Create-Users.ps1)
+[Script](https://github.com/blavoir/configure-ad/blob/main/Generate-Names-Create-Users.ps1)
 
 ![8](https://github.com/user-attachments/assets/442e347a-6a05-41bd-9744-189c624a746a)
 <p>
